@@ -17,14 +17,14 @@ export default function Home() {
     <main style={{ background: "#fff", minHeight: "100vh", display: "grid", placeItems: "center" }}>
       <div style={{ width: "100%", maxWidth: 740, padding: "48px 20px", textAlign: "center" }}>
         <h1 style={{ color: "#e31f27", fontSize: 32, marginBottom: 20 }}>
-          Paste your Terabox / Mdisk / Pdisk link and watch instantly.
+          Paste the video link and open it instantly.
         </h1>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", gap: 8, width: "100%", marginBottom: 20 }}>
           <input
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="Paste Terabox, Mdisk, or Pdisk link here"
+            placeholder="Paste link here"
             style={{ flex: 1, padding: "16px 18px", borderRadius: 12, border: "1px solid #ddd", fontSize: 16 }}
           />
           <button
@@ -36,7 +36,7 @@ export default function Home() {
         </form>
 
         <p style={{ color: "#555", fontSize: 16, lineHeight: 1.7 }}>
-          Paste your Terabox, Mdisk, or Pdisk video URL and open it directly. No extra buttons, no extra steps — just paste the link and play.
+          Paste a video URL and open it directly. No extra buttons, no extra steps — just paste the link and play.
         </p>
       </div>
     </main>
