@@ -8,82 +8,37 @@ export default function Home() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!value) return;
-    const url = encodeURIComponent(value.trim());
-    router.push(`/watch?u=${url}`);
+    const trimmed = value.trim();
+    if (!trimmed) return;
+    router.push(`/watch?u=${encodeURIComponent(trimmed)}`);
   }
 
   return (
-    <main style={{ background: "#fff", color: "#111", minHeight: "100vh" }}>
-      <header style={{ padding: 28, textAlign: "center" }}>
-        <h1 style={{ color: "#e33", margin: 0, fontSize: 26 }}>
-          <span
-            style={{
-              display: "inline-block",
-              width: 36,
-              height: 36,
-              borderRadius: 18,
-              background: "#e33",
-              color: "#fff",
-              lineHeight: "36px",
-              marginRight: 10,
-              fontWeight: 700,
-            }}
-          >
-            M
-          </span>
-          Watch Mdisk, Terabox, and Pdisk Videos Online.
+    <main style={{ background: "#fff", minHeight: "100vh", display: "grid", placeItems: "center" }}>
+      <div style={{ width: "100%", maxWidth: 740, padding: "48px 20px", textAlign: "center" }}>
+        <h1 style={{ color: "#e31f27", fontSize: 32, marginBottom: 20 }}>
+          Paste your Terabox / Mdisk / Pdisk link and watch instantly.
         </h1>
-      </header>
 
-      <section style={{ maxWidth: 920, margin: "20px auto", padding: "0 20px" }}>
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 12 }}
-        >
-          <button
-            type="button"
-            aria-hidden
-            style={{ background: "#fff", border: "1px solid #ccc", padding: 12, borderRadius: 6 }}
-          >
-            📋
-          </button>
+        <form onSubmit={handleSubmit} style={{ display: "flex", gap: 8, width: "100%", marginBottom: 20 }}>
           <input
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="Paste Terabox Link to Watch"
-            style={{ flex: 1, padding: 12, borderRadius: 6, border: "1px solid #ccc" }}
+            placeholder="Paste Terabox, Mdisk, or Pdisk link here"
+            style={{ flex: 1, padding: "16px 18px", borderRadius: 12, border: "1px solid #ddd", fontSize: 16 }}
           />
           <button
             type="submit"
-            style={{ padding: "10px 14px", borderRadius: 6, background: "#111", color: "#fff", border: "none" }}
+            style={{ padding: "16px 22px", borderRadius: 12, background: "#111", color: "#fff", border: "none", fontSize: 16 }}
           >
-            🔍
+            Watch
           </button>
         </form>
 
-        <div style={{ marginTop: 6, background: "#f3f3f3", padding: 18, borderRadius: 6, color: "#333" }}>
-          Watch Mdisk, Terabox and Pdisk videos online without any player. Just paste the Mdisk or Terabox or Pdisk link to play the video online without any external player. Also download the videos, save them locally, share them, and play them on your favorite player.
-        </div>
-
-        <div style={{ marginTop: 18 }}>
-          <button style={{ width: "100%", padding: 14, background: "#07104a", color: "#fff", border: "none", borderRadius: 6 }}>
-            Chat With Stranger
-          </button>
-        </div>
-
-        <div style={{ marginTop: 22, background: "#9ef1d6", padding: 18, borderRadius: 6 }}>
-          We are looking for companies and organizations interested in promoting their products and services on our website. Start the discussion at: <strong>mdiskplay@gmail.com</strong>.
-        </div>
-
-        <footer style={{ marginTop: 80, padding: "18px 0" }}>
-          <nav style={{ display: "flex", gap: 12, justifyContent: "center", background: "#eee", padding: 10, borderRadius: 6 }}>
-            <a href="#">Play Mdisk Videos Online</a>
-            <a href="#">Play Pdisk Videos Online</a>
-            <a href="#">Play Terabox Videos Online</a>
-          </nav>
-        </footer>
-      </section>
+        <p style={{ color: "#555", fontSize: 16, lineHeight: 1.7 }}>
+          Paste your Terabox, Mdisk, or Pdisk video URL and open it directly. No extra buttons, no extra steps — just paste the link and play.
+        </p>
+      </div>
     </main>
   );
 }
