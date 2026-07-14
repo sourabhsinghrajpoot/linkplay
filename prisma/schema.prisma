@@ -1,7 +1,66 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = "postgresql" url = env("DATABASE_URL") }
-model User { id String @id @default(cuid()) email String @unique name String? image String? createdAt DateTime @default(now()) updatedAt DateTime @updatedAt videos Video[] favorites Favorite[] subscriptions Subscription[] }
-model Video { id String @id @default(cuid()) provider String providerFileId String title String mimeType String? thumbnailUrl String? durationMs Int? userId String user User @relation(fields:[userId],references:[id],onDelete:Cascade) createdAt DateTime @default(now()) progress PlaybackProgress? favorites Favorite[] @@unique([provider,providerFileId,userId]) }
-model PlaybackProgress { id String @id @default(cuid()) seconds Int @default(0) completed Boolean @default(false) videoId String @unique video Video @relation(fields:[videoId],references:[id],onDelete:Cascade) updatedAt DateTime @updatedAt }
-model Favorite { id String @id @default(cuid()) userId String videoId String user User @relation(fields:[userId],references:[id],onDelete:Cascade) video Video @relation(fields:[videoId],references:[id],onDelete:Cascade) @@unique([userId,videoId]) }
-model Subscription { id String @id @default(cuid()) userId String provider String providerSubscriptionId String @unique status String plan String currentPeriodEnd DateTime user User @relation(fields:[userId],references:[id],onDelete:Cascade) createdAt DateTime @default(now()) }
+generator client {
+	provider = "prisma-client-js"
+}
+
+datasource db {
+	provider = "postgresql"
+	url = env("DATABASE_URL")
+}
+
+model User {
+	id            String    @id @default(cuid())
+	email         String    @unique
+	name          String?
+	image         String?
+	createdAt     DateTime  @default(now())
+	updatedAt     DateTime  @updatedAt
+	videos        Video[]
+	favorites     Favorite[]
+	subscriptions Subscription[]
+}
+
+model Video {
+	id             String           @id @default(cuid())
+	provider       String
+	providerFileId String
+	title          String
+	mimeType       String?
+	thumbnailUrl   String?
+	durationMs     Int?
+	userId         String
+	user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+	createdAt      DateTime         @default(now())
+	progress       PlaybackProgress?
+	favorites      Favorite[]
+	@@unique([provider, providerFileId, userId])
+}
+
+model PlaybackProgress {
+	id        String  @id @default(cuid())
+	seconds   Int     @default(0)
+	completed Boolean @default(false)
+	videoId   String  @unique
+	video     Video   @relation(fields: [videoId], references: [id], onDelete: Cascade)
+	updatedAt DateTime @updatedAt
+}
+
+model Favorite {
+	id      String @id @default(cuid())
+	userId  String
+	videoId String
+	user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+	video   Video  @relation(fields: [videoId], references: [id], onDelete: Cascade)
+	@@unique([userId, videoId])
+}
+
+model Subscription {
+	id                     String   @id @default(cuid())
+	userId                 String
+	provider               String
+	providerSubscriptionId String   @unique
+	status                 String
+	plan                   String
+	currentPeriodEnd       DateTime
+	user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+	createdAt              DateTime @default(now())
+}
