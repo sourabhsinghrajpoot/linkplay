@@ -1,2 +1,14 @@
-import Link from "next/link";
-export default function Watch() { return <main className="dashboard"><nav className="nav"><Link className="brand" href="/">link<span>play</span></Link><Link href="/dashboard">← Back to library</Link></nav><section className="dash-section"><p className="eyebrow">AUTHORIZED PLAYBACK</p><h1>Connect a provider to play</h1><div className="card"><h3>Playback is permission-aware.</h3><p>LinkPlay plays a video only when the provider offers an official playback method and your account has access. Configure Google OAuth and Drive scopes before enabling production playback.</p></div></section></main>; }
+import { Suspense } from "react";
+import WatchPlayer from "./WatchPlayer";
+
+export default function WatchPage() {
+  return (
+    <main style={{ padding: 24, minHeight: "100vh", background: "#fafafa" }}>
+      <div style={{ maxWidth: 1000, margin: "32px auto" }}>
+        <Suspense fallback={<p>Loading player…</p>}>
+          <WatchPlayer />
+        </Suspense>
+      </div>
+    </main>
+  );
+}

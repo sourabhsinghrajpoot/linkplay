@@ -1,7 +1,89 @@
-import Link from "next/link";
-const features = [
-  ["Authorized by design", "Only official provider APIs and your existing permissions are used."],
-  ["Pick up anywhere", "Resume precisely where you stopped across every signed-in device."],
-  ["A calmer library", "Favorites and collections keep your approved video links in order."]
-];
-export default function Home() { return <main><nav className="nav"><Link className="brand" href="/">link<span>play</span></Link><div className="navlinks"><a href="#how">How it works</a><a href="#pricing">Pricing</a><Link className="button small" href="/dashboard">Open library</Link></div></nav><section className="hero"><div className="eyebrow">YOUR CLOUD. YOUR PERMISSION. YOUR PLAYER.</div><h1>Play your cloud videos <i>anywhere.</i></h1><p>A beautiful, private home for videos you are already authorized to access. No workarounds. No compromised security.</p><div className="actions"><Link className="button" href="/dashboard">Start your library <span>→</span></Link><a className="quiet" href="#how">See how it works</a></div><div className="orb one"/><div className="orb two"/></section><section className="preview" aria-label="LinkPlay dashboard preview"><div className="preview-top"><span className="dot"/><span className="dot"/><span className="dot"/><b>Your library</b></div><div className="preview-content"><aside><strong>Library</strong><span>Continue watching</span><span>Favorites</span><span>Collections</span></aside><div><p className="muted">CONTINUE WATCHING</p><div className="film"><div className="poster"><span>01:24:08</span></div><div><h3>Designing systems that last</h3><p>Google Drive · 48 min remaining</p><div className="progress"><i/></div></div></div></div></div></section><section id="how" className="section"><p className="eyebrow">SIMPLE, COMPLIANT, USEFUL</p><h2>Built around consent.</h2><div className="grid">{features.map(([title, body], i) => <article className="card" key={title}><span className="number">0{i + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></section><section id="pricing" className="section price"><p className="eyebrow">ONE CLEAR UPGRADE</p><h2>More room for what matters.</h2><div className="price-card"><div><h3>Premium</h3><p>Ad-free playback, unlimited organization, and priority support.</p></div><div><b>₹49</b><small>/ month</small><Link className="button small" href="/dashboard">Choose Premium</Link></div></div></section><footer><span className="brand">link<span>play</span></span><p>Secure video access, beautifully organized.</p></footer></main>; }
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function Home() {
+  const [value, setValue] = useState("");
+  const router = useRouter();
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!value) return;
+    const url = encodeURIComponent(value.trim());
+    router.push(`/watch?u=${url}`);
+  }
+
+  return (
+    <main style={{ background: "#fff", color: "#111", minHeight: "100vh" }}>
+      <header style={{ padding: 28, textAlign: "center" }}>
+        <h1 style={{ color: "#e33", margin: 0, fontSize: 26 }}>
+          <span
+            style={{
+              display: "inline-block",
+              width: 36,
+              height: 36,
+              borderRadius: 18,
+              background: "#e33",
+              color: "#fff",
+              lineHeight: "36px",
+              marginRight: 10,
+              fontWeight: 700,
+            }}
+          >
+            M
+          </span>
+          Watch Mdisk, Terabox, and Pdisk Videos Online.
+        </h1>
+      </header>
+
+      <section style={{ maxWidth: 920, margin: "20px auto", padding: "0 20px" }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 12 }}
+        >
+          <button
+            type="button"
+            aria-hidden
+            style={{ background: "#fff", border: "1px solid #ccc", padding: 12, borderRadius: 6 }}
+          >
+            📋
+          </button>
+          <input
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="Paste Terabox Link to Watch"
+            style={{ flex: 1, padding: 12, borderRadius: 6, border: "1px solid #ccc" }}
+          />
+          <button
+            type="submit"
+            style={{ padding: "10px 14px", borderRadius: 6, background: "#111", color: "#fff", border: "none" }}
+          >
+            🔍
+          </button>
+        </form>
+
+        <div style={{ marginTop: 6, background: "#f3f3f3", padding: 18, borderRadius: 6, color: "#333" }}>
+          Watch Mdisk, Terabox and Pdisk videos online without any player. Just paste the Mdisk or Terabox or Pdisk link to play the video online without any external player. Also download the videos, save them locally, share them, and play them on your favorite player.
+        </div>
+
+        <div style={{ marginTop: 18 }}>
+          <button style={{ width: "100%", padding: 14, background: "#07104a", color: "#fff", border: "none", borderRadius: 6 }}>
+            Chat With Stranger
+          </button>
+        </div>
+
+        <div style={{ marginTop: 22, background: "#9ef1d6", padding: 18, borderRadius: 6 }}>
+          We are looking for companies and organizations interested in promoting their products and services on our website. Start the discussion at: <strong>mdiskplay@gmail.com</strong>.
+        </div>
+
+        <footer style={{ marginTop: 80, padding: "18px 0" }}>
+          <nav style={{ display: "flex", gap: 12, justifyContent: "center", background: "#eee", padding: 10, borderRadius: 6 }}>
+            <a href="#">Play Mdisk Videos Online</a>
+            <a href="#">Play Pdisk Videos Online</a>
+            <a href="#">Play Terabox Videos Online</a>
+          </nav>
+        </footer>
+      </section>
+    </main>
+  );
+}
